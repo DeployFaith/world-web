@@ -4,7 +4,7 @@
 
 1. Create `sites/<domain>/`.
 2. Add `sites/<domain>/site.json`.
-3. Add route files (for example `pages/index.html`) and optional static assets (for example `styles/site.css`).
+3. Add route files (for example `pages/index.html`) and optional static assets (for example `styles/site.css`, `scripts/site.js`).
 4. Add/update the domain entry in `registry.json`:
    - `domain`
    - `root`
@@ -23,8 +23,28 @@ Example:
 ```json
 "routes": {
   "/": "pages/index.html",
-  "/about": "pages/about.html"
+  "/interactive": "pages/interactive.html"
 }
+```
+
+## Add local JavaScript
+
+1. Place JS files under `sites/<domain>/scripts/`.
+2. Reference scripts from HTML using local relative `src` values.
+3. Do not use remote or loopback script sources.
+
+Allowed example:
+
+```html
+<script src="../scripts/app.js"></script>
+```
+
+Rejected examples:
+
+```html
+<script src="https://cdn.example.com/app.js"></script>
+<script src="http://localhost:3000/app.js"></script>
+<script src="/../scripts/app.js"></script>
 ```
 
 ## Validate

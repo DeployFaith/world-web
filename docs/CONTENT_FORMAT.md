@@ -22,7 +22,9 @@ Example route mapping:
 ```json
 "routes": {
   "/": "pages/index.html",
-  "/about": "pages/about.html"
+  "/interactive": "pages/interactive.html",
+  "/games": "pages/games.html",
+  "/games/snake": "pages/games_snake.html"
 }
 ```
 
@@ -44,3 +46,17 @@ Notes:
 - Route keys must start with `/`.
 - Route targets must stay inside that site root.
 - Route targets must be static files (no HTTP/localhost targets).
+
+## local JavaScript assets
+
+Recommended structure:
+- `sites/<domain>/pages/*.html`
+- `sites/<domain>/styles/*.css`
+- `sites/<domain>/scripts/*.js`
+
+Script rules enforced by validator:
+- Script `src` must be local relative paths.
+- Script `src` must not include `http://` or `https://`.
+- Script `src` must not include `localhost` or `127.0.0.1`.
+- Script `src` must resolve within the same site root.
+- Referenced script files must exist.

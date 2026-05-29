@@ -14,8 +14,11 @@ SYSTEM_NOT_FOUND_PATH = REPO_ROOT / "system" / "not_found.html"
 
 PLACEHOLDER_DOMAINS = ["news.grid", "atlas.node", "vault.corp"]
 BLOCKED_ROUTE_SUBSTRINGS = ["localhost", "127.0.0.1", "http://", "https://"]
+BLOCKED_SCRIPT_SRC_SUBSTRINGS = ["http://", "https://", "localhost", "127.0.0.1"]
 ALLOWED_DOMAIN_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.hermes$")
-CONTENT_SCAN_GLOBS = ["*.json", "*.html", "*.css"]
+CONTENT_SCAN_GLOBS = ["*.json", "*.html", "*.css", "*.js"]
+SCRIPT_SRC_RE = re.compile(r"<script\b[^>]*\bsrc\s*=\s*['\"]([^'\"]+)['\"]", re.IGNORECASE)
+REQUIRED_HOME_HERMES_ROUTES = ["/interactive", "/games", "/games/snake"]
 
 
 class Validation:
@@ -84,6 +87,61 @@ def scan_for_placeholders(v: Validation) -> None:
         for placeholder in PLACEHOLDER_DOMAINS:
             if placeholder in lower:
                 v.fail(f"Placeholder domain '{placeholder}' found in {path.relative_to(REPO_ROOT)}")
+
+
+def validate_html_script_sources(
+    v: Validation,
+    *,
+    domain: str,
+    site_root: Path,
+    route_path: str,
+    route_target: str,
+    html_path: Path,
+) -> None:
+    if html_path.suffix.lower() not in {".html", ".htm"}:
+        return
+
+    raw_html = html_path.read_text(encoding="utf-8", errors="ignore")
+    html_dir = html_path.parent.resolve()
+
+    for src in SCRIPT_SRC_RE.findall(raw_html):
+        script_src = src.strip()
+        if not script_src:
+            v.fail(f"{domain} script src is empty in {route_target}")
+            continue
+
+        src_lower = script_src.lower()
+        for bad in BLOCKED_SCRIPT_SRC_SUBSTRINGS:
+            if bad in src_lower:
+                v.fail(f"{domain} route {route_path} script src has forbidden token '{bad}': {script_src}")
+
+        if src_lower.startswith("//"):
+            v.fail(f"{domain} route {route_path} script src must not be protocol-relative: {script_src}")
+            continue
+
+        if re.match(r"^[a-z][a-z0-9+.-]*:", src_lower):
+            v.fail(f"{domain} route {route_path} script src must be local relative path: {script_src}")
+            continue
+
+        script_src_path = script_src.split("?", 1)[0].split("#", 1)[0]
+        if not script_src_path:
+            v.fail(f"{domain} route {route_path} script src path is empty: {script_src}")
+            continue
+
+        if Path(script_src_path).is_absolute():
+            v.fail(f"{domain} route {route_path} script src must be relative (not absolute): {script_src}")
+            continue
+
+        resolved_script_path = (html_dir / script_src_path).resolve()
+        if not is_within(site_root.resolve(), resolved_script_path):
+            v.fail(f"{domain} route {route_path} script src escapes site root: {script_src}")
+            continue
+
+        if not resolved_script_path.exists() or not resolved_script_path.is_file():
+            v.fail(f"{domain} route {route_path} script src missing: {script_src}")
+            continue
+
+        v.ok(f"Script src valid: {domain} {route_path} -> {script_src}")
 
 
 def validate() -> int:
@@ -192,6 +250,21 @@ def validate() -> int:
                 v.fail(f"{domain} route target missing: {route_path} -> {route_target}")
             else:
                 v.ok(f"Route exists: {domain} {route_path} -> {route_target}")
+                validate_html_script_sources(
+                    v,
+                    domain=domain,
+                    site_root=site_root,
+                    route_path=route_path,
+                    route_target=route_target,
+                    html_path=target_path,
+                )
+
+        if domain == "home.hermes":
+            for required_route in REQUIRED_HOME_HERMES_ROUTES:
+                if required_route not in routes:
+                    v.fail(f"home.hermes missing required route: {required_route}")
+                else:
+                    v.ok(f"home.hermes required route present: {required_route}")
 
     default_domain = str(registry.get("default_domain", "")).strip()
     if not default_domain:
