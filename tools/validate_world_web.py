@@ -15,7 +15,7 @@ SYSTEM_NOT_FOUND_PATH = REPO_ROOT / "system" / "not_found.html"
 PLACEHOLDER_DOMAINS = ["news.grid", "atlas.node", "vault.corp"]
 BLOCKED_ROUTE_SUBSTRINGS = ["localhost", "127.0.0.1", "http://", "https://"]
 BLOCKED_SCRIPT_SRC_SUBSTRINGS = ["http://", "https://", "localhost", "127.0.0.1"]
-ALLOWED_DOMAIN_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.hermes$")
+ALLOWED_DOMAIN_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.(?:hermes|com|net|org)$")
 CONTENT_SCAN_GLOBS = ["*.json", "*.html", "*.css", "*.js"]
 SCRIPT_SRC_RE = re.compile(r"<script\b[^>]*\bsrc\s*=\s*['\"]([^'\"]+)['\"]", re.IGNORECASE)
 REQUIRED_HOME_HERMES_ROUTES = ["/interactive", "/games", "/games/snake"]
@@ -189,7 +189,7 @@ def validate() -> int:
             v.ok(f"Unique domain: {domain}")
 
         if not domain_allowed(domain):
-            v.fail(f"Domain not allowed (must be valid .hermes): {domain}")
+            v.fail(f"Domain not allowed (must be valid .hermes/.com/.net/.org): {domain}")
         else:
             v.ok(f"Domain allowed: {domain}")
 

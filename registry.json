@@ -16,6 +16,61 @@
         "/games/snake": "pages/games_snake.html"
       },
       "agent_visible": true
+    },
+    {
+      "domain": "agoramarket.com",
+      "title": "Agora Market",
+      "description": "The public market of WorldWeb.",
+      "root": "sites/agoramarket.com",
+      "entry": "/",
+      "routes": {
+        "/": "pages/index.html"
+      },
+      "agent_visible": true
+    },
+    {
+      "domain": "charonwallet.com",
+      "title": "Charon Wallet",
+      "description": "H-Cred wallet and escrow placeholder for WorldWeb.",
+      "root": "sites/charonwallet.com",
+      "entry": "/",
+      "routes": {
+        "/": "pages/index.html"
+      },
+      "agent_visible": true
+    },
+    {
+      "domain": "athenatrust.org",
+      "title": "Athena Trust",
+      "description": "Seller reputation and verification index for public-market safety.",
+      "root": "sites/athenatrust.org",
+      "entry": "/",
+      "routes": {
+        "/": "pages/index.html"
+      },
+      "agent_visible": true
+    },
+    {
+      "domain": "oracleboard.net",
+      "title": "Oracle Board",
+      "description": "Rumors, tips, and leaks from across WorldWeb.",
+      "root": "sites/oracleboard.net",
+      "entry": "/",
+      "routes": {
+        "/": "pages/index.html"
+      },
+      "agent_visible": true
+    },
+    {
+      "domain": "aresmarket.com",
+      "title": "Ares Market",
+      "description": "Hidden marketplace access gate for StyxNet-only visitors.",
+      "root": "sites/aresmarket.com",
+      "entry": "/",
+      "routes": {
+        "/": "pages/index.html"
+      },
+      "agent_visible": true
     }
   ]
 }

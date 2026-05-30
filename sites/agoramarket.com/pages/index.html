@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agora Market</title>
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, sans-serif; margin: 0; background: #0f1320; color: #e8ebf6; }
+    main { max-width: 1080px; margin: 0 auto; padding: 24px; }
+    .hero { background: #171d31; border: 1px solid #2b355c; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+    .subtitle { color: #b9c3eb; }
+    .balance { font-weight: 700; color: #8cffbd; }
+    .layout { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+    .panel { background: #171d31; border: 1px solid #2b355c; border-radius: 12px; padding: 16px; }
+    .listing { border: 1px solid #33406f; border-radius: 10px; padding: 10px; margin-bottom: 10px; }
+    .meta { font-size: 0.92rem; color: #b4bee6; }
+    .risk-low { color: #8cffbd; }
+    .risk-mid { color: #ffd18f; }
+    .risk-high { color: #ff9a9a; }
+    .selected { box-shadow: 0 0 0 2px #5f7ae6 inset; }
+    button { background: #2a3a73; color: #f4f6ff; border: 1px solid #3f55a0; border-radius: 8px; padding: 5px 9px; cursor: pointer; margin-right: 8px; }
+    ul { margin-top: 8px; padding-left: 18px; }
+    .detail-box { border: 1px solid #33406f; border-radius: 10px; padding: 12px; background: #11172a; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>Agora Market</h1>
+      <p class="subtitle">The public market of WorldWeb</p>
+      <p class="balance">Wallet Balance: $<span id="balance">250</span></p>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <h2>Listings</h2>
+        <div id="listings"></div>
+      </div>
+
+      <aside class="panel">
+        <h2>Selected Listing</h2>
+        <div id="details" class="detail-box">Select Inspect on any listing to see details.</div>
+
+        <h2>Inventory</h2>
+        <ul id="inventory"><li>No purchases yet.</li></ul>
+
+        <h2>Receipts</h2>
+        <ul id="receipts"><li>No receipts yet.</li></ul>
+
+        <h2>Messages</h2>
+        <ul id="messages"><li>No messages yet.</li></ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="../scripts/market.js"></script>
+</body>
+</html>
