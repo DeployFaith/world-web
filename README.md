@@ -1,8 +1,11 @@
 # world-web
 
-World Web is the content repository for Hermes Internet.
+WorldWeb is the static content repository for the in-game WorldWeb layer.
 
-Hermes Internet is bundled/local internet content for Hermes_OS. It is static content loaded from files and does not require Docker, localhost, sidecars, bridges, or servers.
+WorldWeb is the bundled/local WorldWeb content for Hermes_OS. It is static content loaded from files and does not require Docker, localhost, sidecars, bridges, or servers.
+
+Terminology note:
+WorldWeb is the current name for the fake/local in-game internet layer. Some existing Hermes_OS code paths and directories may still use legacy/internal names such as `hermes_internet`. Do not introduce new user-facing uses of the old name.
 
 Current official site:
 - `home.hermes`
