@@ -168,13 +168,15 @@ def export_site(site: SiteConfig) -> None:
     if site.export_command:
         run_command(site.export_command, REPO_ROOT, f"export:{site.id}")
         report = inline_local_assets(site)
+        embedded_index = embed_pythia_index(site)
         print(
             f"[export:{site.id}] Inlined assets: "
             f"html_files={report['html_files']} "
             f"css_inlined={report['css_inlined']} "
             f"scripts_inlined={report['scripts_inlined']} "
             f"external_or_blocked={report['external_or_blocked']} "
-            f"missing_or_skipped={report['missing_or_skipped']}"
+            f"missing_or_skipped={report['missing_or_skipped']} "
+            f"embedded_index={embedded_index}"
         )
         return
     raise PipelineError(f"site '{site.id}' has no export command configured")
@@ -324,6 +326,31 @@ def resolve_local_asset_path(asset_ref: str, html_path: Path, site_root: Path) -
     if not candidate.exists() or not candidate.is_file():
         return None
     return candidate
+
+
+def embed_pythia_index(site: SiteConfig) -> int:
+    if site.id != "pythia-search":
+        return 0
+
+    index_path = site.site_root / "data" / "search-index.json"
+    if not index_path.exists() or not index_path.is_file():
+        raise PipelineError(f"site '{site.id}' missing search index for embed: {index_path}")
+
+    token = "__PYTHIA_SEARCH_INDEX_JSON__"
+    payload = index_path.read_text(encoding="utf-8").strip()
+    updated_files = 0
+
+    for html_path in sorted(site.site_root.rglob("*.html")):
+        original = html_path.read_text(encoding="utf-8")
+        if token not in original:
+            continue
+        html_path.write_text(original.replace(token, payload), encoding="utf-8")
+        updated_files += 1
+
+    if updated_files == 0:
+        raise PipelineError(f"site '{site.id}' did not contain embed token '{token}' in exported HTML")
+
+    return updated_files
 
 
 def sync_site(site: SiteConfig) -> None:

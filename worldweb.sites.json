@@ -25,6 +25,31 @@
         "source": "sites/agoramarket.com",
         "destination": "../HermesOS/content/hermes_internet/sites/agoramarket.com"
       }
+    },
+    {
+      "id": "pythia-search",
+      "enabled": true,
+      "domain": "pythia.com",
+      "app_dir": "apps/pythia-search",
+      "site_root": "sites/pythia.com",
+      "build": {
+        "command": [
+          "npm",
+          "run",
+          "_pythia:bundle"
+        ]
+      },
+      "export": {
+        "command": [
+          "npm",
+          "run",
+          "_pythia:bundle"
+        ]
+      },
+      "sync": {
+        "source": "sites/pythia.com",
+        "destination": "../HermesOS/content/hermes_internet/sites/pythia.com"
+      }
     }
   ]
 }
