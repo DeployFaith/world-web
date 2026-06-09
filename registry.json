@@ -1,3 +1,10 @@
+Removing 'root' from home.hermes: sites/home.hermes
+Removing 'root' from agoramarket.com: sites/agoramarket.com
+Removing 'root' from charonwallet.com: sites/charonwallet.com
+Removing 'root' from athenatrust.org: sites/athenatrust.org
+Removing 'root' from oracleboard.net: sites/oracleboard.net
+Removing 'root' from aresmarket.com: sites/aresmarket.com
+Removing 'root' from pythia.com: sites/pythia.com
 {
   "version": 1,
   "product": "Hermes Internet",
@@ -7,7 +14,6 @@
       "domain": "home.hermes",
       "title": "Hermes_OS",
       "description": "The official Hermes_OS landing page for Hermes Internet.",
-      "root": "sites/home.hermes",
       "entry": "/",
       "routes": {
         "/": "pages/index.html",
@@ -21,7 +27,6 @@
       "domain": "agoramarket.com",
       "title": "Agora Market",
       "description": "The public market of WorldWeb.",
-      "root": "sites/agoramarket.com",
       "entry": "/",
       "routes": {
         "/": "pages/index.html"
@@ -32,7 +37,6 @@
       "domain": "charonwallet.com",
       "title": "Charon Wallet",
       "description": "H-Cred wallet and escrow placeholder for WorldWeb.",
-      "root": "sites/charonwallet.com",
       "entry": "/",
       "routes": {
         "/": "pages/index.html"
@@ -43,7 +47,6 @@
       "domain": "athenatrust.org",
       "title": "Athena Trust",
       "description": "Seller reputation and verification index for public-market safety.",
-      "root": "sites/athenatrust.org",
       "entry": "/",
       "routes": {
         "/": "pages/index.html"
@@ -54,7 +57,6 @@
       "domain": "oracleboard.net",
       "title": "Oracle Board",
       "description": "Rumors, tips, and leaks from across WorldWeb.",
-      "root": "sites/oracleboard.net",
       "entry": "/",
       "routes": {
         "/": "pages/index.html"
@@ -65,7 +67,6 @@
       "domain": "aresmarket.com",
       "title": "Ares Market",
       "description": "Hidden marketplace access gate for StyxNet-only visitors.",
-      "root": "sites/aresmarket.com",
       "entry": "/",
       "routes": {
         "/": "pages/index.html"
@@ -76,7 +77,6 @@
       "domain": "pythia.com",
       "title": "Pythia Search",
       "description": "Search indexed WorldWeb sites, pages, and listings.",
-      "root": "sites/pythia.com",
       "entry": "/",
       "routes": {
         "/": "pages/index.html"
