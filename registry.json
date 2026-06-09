@@ -1,10 +1,3 @@
-Removing 'root' from home.hermes: sites/home.hermes
-Removing 'root' from agoramarket.com: sites/agoramarket.com
-Removing 'root' from charonwallet.com: sites/charonwallet.com
-Removing 'root' from athenatrust.org: sites/athenatrust.org
-Removing 'root' from oracleboard.net: sites/oracleboard.net
-Removing 'root' from aresmarket.com: sites/aresmarket.com
-Removing 'root' from pythia.com: sites/pythia.com
 {
   "version": 1,
   "product": "Hermes Internet",
