@@ -19,3 +19,6 @@ mono_crash.*.json
 # Node/Vite/Svelte
 node_modules/
 *.log
+
+# AI agent files
+/AGENTS.md
