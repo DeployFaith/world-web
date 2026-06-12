@@ -22,3 +22,10 @@ node_modules/
 
 # AI agent files
 /AGENTS.md
+
+# Scratch / task packets
+registry_clean.json
+task-packet-*.txt
+
+# Python cache
+__pycache__/
